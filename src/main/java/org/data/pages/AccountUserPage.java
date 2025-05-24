@@ -47,7 +47,7 @@ public class AccountUserPage extends AbsBasePage {
         return waitAndGetText(By.xpath("//h2[text()='Мои списки желаний']"));
     }
 
-    @Step("Заполнение формы входа пользователя")
+    @Step("Заполнение формы регистрации пользователя")
     public void registration() {
         User user = new User();
         String name = user.getName();
@@ -62,6 +62,7 @@ public class AccountUserPage extends AbsBasePage {
 
     @Step("Заполнение формы входа пользователя")
     public void authorization() {
+        isElementVisible(By.xpath("//h2[text()='Вход в систему']"));
         String nameUser = System.getProperty("login");
         String passwordUser = System.getProperty("password");
         inputName(nameUser);
@@ -109,12 +110,5 @@ public class AccountUserPage extends AbsBasePage {
     @Step("Нажать кнопку Войти")
     public void clickButtonLogin() {
         buttonLogin.click();
-    }
-
-    @Step("Заполнение формы входа пользователя")
-    public void formAuthorization(String name, String password) {
-        isElementVisible(By.xpath("//h2[text()='Вход в систему']"));
-        inputName(name);
-        inputPassword(password);
     }
 }

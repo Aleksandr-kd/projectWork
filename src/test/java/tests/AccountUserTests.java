@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(classes = TestApplication.class)
-public class AccountUserTests extends BaseTest{
+public class AccountUserTests extends BaseTest {
 
 
     @BeforeEach
@@ -30,6 +30,8 @@ public class AccountUserTests extends BaseTest{
     public void userRegistration() {
         String titleLogin = "Вход в систему";
         String titleRegistration = "Регистрация";
+        String titleAccount = "Мои списки желаний";
+
 
         accountUserPage.registration();
         String textRegistration = accountUserPage.getPageTextRegistration();
@@ -37,16 +39,21 @@ public class AccountUserTests extends BaseTest{
 
         String textLogin = accountUserPage.getTextLogin();
         assertThat(textLogin).isEqualTo(titleLogin);
-    }
 
-    @Test
-    @Tag("account1")
-    @DisplayName("Авторизация пользователя.")
-    public void login() {
-        String titleAccount = "Мои списки желаний";
 
         accountUserPage.authorization();
         String textAccount = accountUserPage.getTextAccount();
         assertThat(textAccount).isEqualTo(titleAccount);
     }
+
+//    @Test
+//    @Tag("account1")
+//    @DisplayName("Авторизация пользователя.")
+//    public void login() {
+//        String titleAccount = "Мои списки желаний";
+//
+//        accountUserPage.authorization();
+//        String textAccount = accountUserPage.getTextAccount();
+//        assertThat(textAccount).isEqualTo(titleAccount);
 }
+
