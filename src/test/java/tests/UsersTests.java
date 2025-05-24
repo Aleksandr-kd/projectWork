@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Step;
 import org.data.TestApplication;
-import org.data.dto.User;
 import org.data.dto.WishList;
 import org.data.pages.UsersPage;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,36 +26,39 @@ public class UsersTests extends BaseTest{
 
     @Test
     @Tag("users")
-    @DisplayName("Создание списка желаний.")
-    public void userRegistration() {
-
-        String name = System.getProperty("login");
-        String password = System.getProperty("password");
+    @DisplayName("Управление пользователем списка желаний.")
+    public void userPresentWishList() {
 
         WishList wishList = new WishList();
         String nameProduct = wishList.getProductName();
         String description = wishList.getDescription();
 
-        usersPage.formAuthorization(name, password);
-        usersPage.clickButtonLogin();
+        usersPage.authorization();
         usersPage.clickCreateNewWishList();
         usersPage.formCreateNewWishList(nameProduct, description);
         usersPage.clickButtonCreate();
 
         String nameCheck = usersPage.getPageTextNameRegistrationPresent();
-
         assertThat(nameCheck)
                 .as("Элемент с названием %s не найден", nameProduct)
                 .isEqualTo(nameProduct);
 
         String descriptionCheck = usersPage.getPageTextDescriptionPresent();
-        assertThat(description).isEqualTo(descriptionCheck);
-
         assertThat(description)
                 .as("Элемент с описанием %s не найден", descriptionCheck)
                 .isEqualTo(descriptionCheck);
 
-        Boolean deletePresent = usersPage.isDeletePresent();
-        assertThat(deletePresent).as("Проверка удаления элемента").isTrue();
+        Boolean isDeletePresent = usersPage.isDeletePresent();
+        assertThat(isDeletePresent).as("Проверка удаления элемента").isTrue();
+    }
+
+    @Test
+    @Tag("users1")
+    @DisplayName("Управление пользовательского подарка.")
+    public void userPresentView() {
+
+        usersPage.authorization();
+        usersPage.clickButtonLogin();
+
     }
 }

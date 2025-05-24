@@ -1,7 +1,6 @@
 package tests;
 
 import org.data.TestApplication;
-import org.data.dto.User;
 import org.data.pages.AccountUserPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,38 +28,24 @@ public class AccountUserTests extends BaseTest{
     @Tag("account")
     @DisplayName("Регистрации пользователя.")
     public void userRegistration() {
-        User user = new User();
         String titleLogin = "Вход в систему";
         String titleRegistration = "Регистрация";
-        String name = user.getName();
-        String email = user.getEmail();
-        String password = user.getPassword();
 
+        accountUserPage.registration();
         String textRegistration = accountUserPage.getPageTextRegistration();
         assertThat(textRegistration).isEqualTo(titleRegistration);
-
-        accountUserPage.formRegistration(name, email, password);
-        accountUserPage.clickButtonRegistration();
 
         String textLogin = accountUserPage.getTextLogin();
         assertThat(textLogin).isEqualTo(titleLogin);
     }
 
     @Test
-    @Tag("account")
+    @Tag("account1")
     @DisplayName("Авторизация пользователя.")
     public void login() {
-        User user = new User();
         String titleAccount = "Мои списки желаний";
-        String name = user.getName();
-        String email = user.getEmail();
-        String password = user.getPassword();
 
-        accountUserPage.formRegistration(name, email, password);
-        accountUserPage.clickButtonRegistration();
-        accountUserPage.formAuthorization(name, password);
-        accountUserPage.clickButtonLogin();
-
+        accountUserPage.authorization();
         String textAccount = accountUserPage.getTextAccount();
         assertThat(textAccount).isEqualTo(titleAccount);
     }

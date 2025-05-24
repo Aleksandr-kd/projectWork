@@ -100,9 +100,13 @@ public class UsersPage extends AbsBasePage {
     }
 
     @Step("Заполнение формы входа пользователя")
-    public void formAuthorization(String name, String password) {
-        inputName(name);
-        inputPassword(password);
+    public void authorization() {
+        String nameUser = System.getProperty("login");
+        String passwordUser = System.getProperty("password");
+        inputName(nameUser);
+        inputPassword(passwordUser);
+        clickButtonLogin();
+        waitPageLoad();
     }
 
     @Step("Нажать кнопку Создать новый список")

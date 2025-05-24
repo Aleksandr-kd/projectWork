@@ -1,6 +1,7 @@
 package org.data.pages;
 
 import io.qameta.allure.Step;
+import org.data.dto.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,6 +47,29 @@ public class AccountUserPage extends AbsBasePage {
         return waitAndGetText(By.xpath("//h2[text()='Мои списки желаний']"));
     }
 
+    @Step("Заполнение формы входа пользователя")
+    public void registration() {
+        User user = new User();
+        String name = user.getName();
+        String email = user.getEmail();
+        String password = user.getPassword();
+        inputName(name);
+        inputEmail(email);
+        inputPassword(password);
+        clickButtonRegistration();
+        waitPageLoad();
+    }
+
+    @Step("Заполнение формы входа пользователя")
+    public void authorization() {
+        String nameUser = System.getProperty("login");
+        String passwordUser = System.getProperty("password");
+        inputName(nameUser);
+        inputPassword(passwordUser);
+        clickButtonLogin();
+        waitPageLoad();
+    }
+
     @Step("Получение текста страницы Вход в систему")
     public String getTextLogin() {
         return waitAndGetText(By.xpath("//h2[text()='Вход в систему']"));
@@ -59,6 +83,11 @@ public class AccountUserPage extends AbsBasePage {
     @Step("Проверка открытия страницы Регистрация")
     public void openRegistration() {
         registration.click();
+    }
+
+    @Step("Нажать кнопку зарегистрировать")
+    public void clickButtonRegistration() {
+        buttonRegistration.click();
     }
 
     @Step("Ввести имя пользователя: {nameRegistration}")
@@ -77,21 +106,9 @@ public class AccountUserPage extends AbsBasePage {
         inputPassword.sendKeys(passwordRegistration);
     }
 
-    @Step("Нажать кнопку зарегистрировать")
-    public void clickButtonRegistration() {
-        buttonRegistration.click();
-    }
-
     @Step("Нажать кнопку Войти")
     public void clickButtonLogin() {
         buttonLogin.click();
-    }
-
-    @Step("Заполнение формы регистрации пользователя")
-    public void formRegistration(String name, String email, String password) {
-        inputName(name);
-        inputEmail(email);
-        inputPassword(password);
     }
 
     @Step("Заполнение формы входа пользователя")
