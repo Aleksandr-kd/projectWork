@@ -20,5 +20,4 @@ public class WishList {
             "Это описание и товар: %s могут не совпадать по логике друг с другом: %s",
             productName, description
     );
-
 }

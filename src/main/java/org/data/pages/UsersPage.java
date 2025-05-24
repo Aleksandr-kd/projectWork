@@ -65,6 +65,24 @@ public class UsersPage extends AbsBasePage {
     @FindBy(xpath = "//button[text()='Добавить']")
     private WebElement buttonAddForm;
 
+    @FindBy(xpath = "//div[@class='g-4 row row-cols-lg-3 row-cols-md-2 row-cols-1']/*[last()]" +
+            "//div[@class='card-title h5']")
+    private WebElement lastNamePresent;
+
+    @FindBy(xpath = "//div[@class='g-4 row row-cols-lg-3 row-cols-md-2 row-cols-1']/*[last()]" +
+            "//p[@class='card-text']")
+    private WebElement lastDescriptionPresent;
+
+    @Step("Получение название последнего желания")
+    public String getPageTextNameRegistrationPresent() {
+        return lastNamePresent.getText();
+    }
+
+    @Step("Получение описание последнего желания")
+    public String getPageTextDescriptionPresent() {
+        return lastDescriptionPresent.getText();
+    }
+
     @Step("Ввести имя пользователя: {nameRegistration}")
     public void inputName(String nameRegistration) {
         inputName.click();
@@ -114,6 +132,19 @@ public class UsersPage extends AbsBasePage {
     public void formCreateNewWishList(String name, String description) {
         setNameNewWishList(name);
         setDescriptionNewWishList(description);
-
     }
+
+    @Step("Удаление желания")
+    public boolean isDeletePresent() {
+        buttonDeleteWishList.click();
+        return true;
+    }
+//    @Step("Поиск добавленного")
+//    public boolean isDeletePresent() {
+//        buttonDeleteWishList.click();
+//        return true;
+//    }
+
+
+
 }

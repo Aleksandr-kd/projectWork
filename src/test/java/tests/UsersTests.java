@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Step;
 import org.data.TestApplication;
 import org.data.dto.User;
 import org.data.dto.WishList;
@@ -28,13 +29,12 @@ public class UsersTests extends BaseTest{
     @Test
     @Tag("users")
     @DisplayName("Создание списка желаний.")
-    public void userRegistration() throws InterruptedException {
-        User user = new User();
-        WishList wishList = new WishList();
+    public void userRegistration() {
 
         String name = System.getProperty("login");
         String password = System.getProperty("password");
 
+        WishList wishList = new WishList();
         String nameProduct = wishList.getProductName();
         String description = wishList.getDescription();
 
@@ -44,10 +44,20 @@ public class UsersTests extends BaseTest{
         usersPage.formCreateNewWishList(nameProduct, description);
         usersPage.clickButtonCreate();
 
-//        assertThat.
+        String nameCheck = usersPage.getPageTextNameRegistrationPresent();
 
-        Thread.sleep(2000);
+        assertThat(nameCheck)
+                .as("Элемент с названием %s не найден", nameProduct)
+                .isEqualTo(nameProduct);
 
+        String descriptionCheck = usersPage.getPageTextDescriptionPresent();
+        assertThat(description).isEqualTo(descriptionCheck);
 
+        assertThat(description)
+                .as("Элемент с описанием %s не найден", descriptionCheck)
+                .isEqualTo(descriptionCheck);
+
+        Boolean deletePresent = usersPage.isDeletePresent();
+        assertThat(deletePresent).as("Проверка удаления элемента").isTrue();
     }
 }
