@@ -54,11 +54,28 @@ public class UsersTests extends BaseTest{
 
     @Test
     @Tag("users1")
-    @DisplayName("Управление пользовательского подарка.")
+    @DisplayName("Управление пользовательского подарка. Поиск и удаление подарка.")
     public void userPresentView() {
 
+        WishList wishList = new WishList();
+        String nameProduct = wishList.getProductName();
+        String description = wishList.getDescription();
+
         usersPage.authorization();
-        usersPage.clickButtonLogin();
+        usersPage.clickCreateNewWishList();
+        usersPage.formCreateNewWishList(nameProduct, description);
+        usersPage.clickButtonCreate();
+        usersPage.viewWishList();
+
+
+        String nameCheck = usersPage.getNameWishList();
+        assertThat(nameCheck)
+                .as("Элемент с названием %s не найден", nameProduct)
+                .isEqualTo(nameProduct);
+//        usersPage.isDeleteWishList();
+//
+//        Boolean isDeletePresent = usersPage.isDeleteWishList();
+//        assertThat(isDeletePresent).as("Проверка удаления элемента").isTrue();
 
     }
 }

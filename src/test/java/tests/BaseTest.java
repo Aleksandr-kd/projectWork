@@ -20,4 +20,28 @@ public abstract class BaseTest {
 //        usersPage.open();
 //    }
 
+    protected WebDriver driver;
+
+    @Autowired
+    protected BaseWaitUtils waitUtils;
+
+
+    @BeforeEach
+    void setUpDriver() {
+        driver = driverFactory.createDriver();
+    }
+
+    @AfterEach
+    void tearDownDriver() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    /**
+     * Получает PageObject с внедрением текущего драйвера
+     */
+    protected <T> T getPage(Class<T> pageClass) {
+        return context.getBean(pageClass, driver);
+    }
 }

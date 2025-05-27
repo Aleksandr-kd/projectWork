@@ -109,7 +109,7 @@ public abstract class AbsBasePage {
     }
 
     @Step("Проверка видимости элемента")
-    protected boolean isElementVisible(By locator) {
+    protected void isElementVisible(By locator) {
         try {
             return waitForElement(locator, Duration.ofSeconds(2)).isDisplayed();
         } catch (TimeoutException e) {
@@ -132,5 +132,12 @@ public abstract class AbsBasePage {
     // Простое подтверждение alert
     public void acceptAlert() {
         waitForAlert().accept();
+    }
+
+    public void waitPageLoad(int timeoutInSeconds) {
+        getFluentWait(Duration.ofDays(timeoutInSeconds))
+                .until(d -> ((JavascriptExecutor) d)
+                        .executeScript("return document.readyState")
+                        .equals("complete"));
     }
 }

@@ -143,12 +143,26 @@ public class UsersPage extends AbsBasePage {
         buttonDeleteWishList.click();
         return true;
     }
-//    @Step("Поиск добавленного")
-//    public boolean isDeletePresent() {
-//        buttonDeleteWishList.click();
-//        return true;
-//    }
 
+    @Step("Просмотр добавленного подарка")
+    public void viewWishList() {
+        new Actions(driver)
+                .moveToElement(driver.findElement(By.xpath("//button[text()='Просмотр']")))
+                .click()
+                .perform();
+    }
+
+    @Step("Удаление списка")
+    public boolean isDeleteWishList() {
+        buttonDeletePresent.click();
+        return true;
+    }
+
+    @Step("Получение описание последнего желания")
+    public String getNameWishList() {
+        waitUtils.waitUntilTextChanges(By.xpath("//button[text()='Просмотр']"), "Загрузка...");
+        return nameWishList.getText();
+    }
 
 
 }
