@@ -3,8 +3,10 @@ package org.data.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -64,6 +66,9 @@ public class UsersPage extends AbsBasePage {
 
     @FindBy(xpath = "//button[text()='Добавить']")
     private WebElement buttonAddForm;
+
+    @FindBy(xpath = "//div[@class='mt-5 container']")
+    private WebElement nameWishList;
 
     @FindBy(xpath = "//div[@class='g-4 row row-cols-lg-3 row-cols-md-2 row-cols-1']/*[last()]" +
             "//div[@class='card-title h5']")
@@ -147,6 +152,7 @@ public class UsersPage extends AbsBasePage {
     @Step("Просмотр добавленного подарка")
     public void viewWishList() {
         new Actions(driver)
+                .sendKeys(Keys.END)
                 .moveToElement(driver.findElement(By.xpath("//button[text()='Просмотр']")))
                 .click()
                 .perform();
@@ -158,11 +164,9 @@ public class UsersPage extends AbsBasePage {
         return true;
     }
 
-    @Step("Получение описание последнего желания")
+    @Step("Получение названия последнего желания")
     public String getNameWishList() {
-        waitUtils.waitUntilTextChanges(By.xpath("//button[text()='Просмотр']"), "Загрузка...");
+        waitUntilTextChanges(By.xpath("//button[text()='Просмотр']"), "Загрузка");
         return nameWishList.getText();
     }
-
-
 }

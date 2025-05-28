@@ -1,23 +1,21 @@
-package tests;
+package tests.tests;
 
 import org.data.TestApplication;
 import org.data.pages.AccountUserPage;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+//import tests.support.BaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(classes = TestApplication.class)
-public class AccountUserTests extends BaseTest {
+public class AccountUserTests  {
 
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         accountUserPage.open();
     }
 
@@ -32,28 +30,17 @@ public class AccountUserTests extends BaseTest {
         String titleRegistration = "Регистрация";
         String titleAccount = "Мои списки желаний";
 
-
-        accountUserPage.registration();
         String textRegistration = accountUserPage.getPageTextRegistration();
         assertThat(textRegistration).isEqualTo(titleRegistration);
 
+        accountUserPage.registration();
+
         String textLogin = accountUserPage.getTextLogin();
         assertThat(textLogin).isEqualTo(titleLogin);
-
 
         accountUserPage.authorization();
         String textAccount = accountUserPage.getTextAccount();
         assertThat(textAccount).isEqualTo(titleAccount);
     }
-
-//    @Test
-//    @Tag("account1")
-//    @DisplayName("Авторизация пользователя.")
-//    public void login() {
-//        String titleAccount = "Мои списки желаний";
-//
-//        accountUserPage.authorization();
-//        String textAccount = accountUserPage.getTextAccount();
-//        assertThat(textAccount).isEqualTo(titleAccount);
 }
 

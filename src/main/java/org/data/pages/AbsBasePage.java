@@ -1,6 +1,7 @@
 package org.data.pages;
 
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,10 +31,24 @@ public abstract class AbsBasePage {
     @Step("Открытие страницы")
     public void open() {
         driver.get(baseUrl + path);
-        waitPageLoad();
     }
 
+    private WebDriverWait getWait() {
+        return new WebDriverWait(driver, DEFAULT_TIMEOUT);
+    }
+
+
+    /**
+     * Ждёт, пока текст в элементе ИЗМЕНИТСЯ с начального значения
+     */
+    public void waitUntilTextChanges(By locator, String initialText) {
+        getWait().until(driver -> {
+            String currentText = driver.findElement(locator).getText();
+            return !currentText.equals(initialText) ? currentText : null;
+        });
+    }
     // Основные методы ожидания
+//        PageFactory.initElements(driver, this);
 
     protected WebElement waitForElement(By locator) {
         return getFluentWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -111,9 +126,8 @@ public abstract class AbsBasePage {
     @Step("Проверка видимости элемента")
     protected void isElementVisible(By locator) {
         try {
-            return waitForElement(locator, Duration.ofSeconds(2)).isDisplayed();
-        } catch (TimeoutException e) {
-            return false;
+            waitForElement(locator, Duration.ofSeconds(10)).isDisplayed();
+        } catch (TimeoutException ignored) {
         }
     }
     // Ожидание появления alert

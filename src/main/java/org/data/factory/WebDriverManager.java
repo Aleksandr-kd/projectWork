@@ -10,26 +10,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 
-
 @Configuration
-public class WebDriverFactory {
+public class WebDriverManager {
 
-    private final String browserName = System.getProperty("browser");
-
-    @Bean(name = "testDriver")
-    @Primary
+    @Bean
     @Scope("prototype")
-    public WebDriver getDriver() {
-        WebDriver driver = createDriver();
-        Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-        return driver;
-    }
-
-    public WebDriver createDriver() {
+    public WebDriver testDriver() {
+        String browserName = System.getProperty("browser");
         return switch (browserName.toLowerCase()) {
             case "chrome" -> new ChromeDriver((ChromeOptions) new ChromeSettings().settings());
             case "firefox" -> new FirefoxDriver((FirefoxOptions) new FirefoxSettings().settings());
