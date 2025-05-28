@@ -1,13 +1,12 @@
 package org.data.pages;
 
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.AfterEach;
+import org.data.manager.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
 import java.util.List;
@@ -21,9 +20,8 @@ public abstract class AbsBasePage {
     protected final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(10);
     protected final Duration POLLING_INTERVAL = Duration.ofMillis(500);
 
-    @Autowired
-    public AbsBasePage(WebDriver driver, String path) {
-        this.driver = driver;
+    public AbsBasePage(DriverManager driverManager, String path) {
+        this.driver = driverManager.getDriver();
         this.path = path;
         PageFactory.initElements(driver, this);
     }

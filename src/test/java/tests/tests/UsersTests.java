@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.springframework.boot.test.context.SpringBootTest;
 import tests.support.BaseTest;
 
@@ -21,7 +24,6 @@ public class UsersTests extends BaseTest {
     @BeforeEach
     void initPage() {
         usersPage = getPage(UsersPage.class);
-//        wishList = getPage(WishList.class);
     }
 
     @Test
@@ -53,7 +55,7 @@ public class UsersTests extends BaseTest {
     }
 
     @Test
-    @Tag("users1")
+    @Tag("users")
     @DisplayName("Управление пользовательского подарка. Поиск и удаление подарка.")
     public void userPresentView() {
 

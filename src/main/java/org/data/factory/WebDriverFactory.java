@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-public class WebDriverManager {
+public class WebDriverFactory {
 
     @Bean
     @Scope("prototype")

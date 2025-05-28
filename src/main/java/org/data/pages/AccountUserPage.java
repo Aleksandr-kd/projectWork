@@ -2,14 +2,10 @@ package org.data.pages;
 
 import io.qameta.allure.Step;
 import org.data.dto.User;
+import org.data.manager.DriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +14,8 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class AccountUserPage extends AbsBasePage {
 
-    @Autowired
-    public AccountUserPage(@Qualifier("testDriver") WebDriver driver) {
-        super(driver, "/register");
+    public AccountUserPage(DriverManager driverManager) {
+        super(driverManager, "/register");
     }
 
     @FindBy(xpath = "//button[text()='Войти']")
