@@ -1,4 +1,4 @@
-package org.data.data;
+package ru.arutyunyan.data;
 
 public enum BrowserModeData {
     KIOSK("kiosk"),

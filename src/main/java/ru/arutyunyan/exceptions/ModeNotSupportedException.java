@@ -1,4 +1,4 @@
-package org.data.exceptions;
+package ru.arutyunyan.exceptions;
 
 public class ModeNotSupportedException extends RuntimeException {
     public ModeNotSupportedException(String modeName) {

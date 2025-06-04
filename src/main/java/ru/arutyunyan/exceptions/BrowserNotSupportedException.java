@@ -1,4 +1,4 @@
-package org.data.exceptions;
+package ru.arutyunyan.exceptions;
 
 public class BrowserNotSupportedException extends RuntimeException {
 

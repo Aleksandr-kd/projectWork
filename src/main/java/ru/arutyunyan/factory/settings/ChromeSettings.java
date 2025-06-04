@@ -1,8 +1,8 @@
-package org.data.factory.settings;
+package ru.arutyunyan.factory.settings;
 
 
-import org.data.data.BrowserModeData;
-import org.data.exceptions.ModeNotSupportedException;
+import ru.arutyunyan.data.BrowserModeData;
+import ru.arutyunyan.exceptions.ModeNotSupportedException;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.AbstractDriverOptions;
 

@@ -1,43 +1,46 @@
-package tests.tests;
+package tests;
 
-import org.data.TestApplication;
-import org.data.dto.WishList;
-import org.data.pages.UsersPage;
-import org.junit.jupiter.api.BeforeEach;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.extension.ExtendWith;
+import ru.arutyunyan.dto.User;
+import ru.arutyunyan.dto.WishList;
+import ru.arutyunyan.pages.otus.ClientOtusPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
-import org.springframework.boot.test.context.SpringBootTest;
-import tests.support.BaseTest;
+import ru.arutyunyan.extension.TestSetupExtension;
+import ru.arutyunyan.pages.otus.UsersPage;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(TestSetupExtension.class)
+public class UsersTests {
 
-@SpringBootTest(classes = TestApplication.class)
-public class UsersTests extends BaseTest {
+    @Inject
+    ClientOtusPage clientOtusPage;
 
+    @Inject
     private UsersPage usersPage;
 
-    @BeforeEach
-    void initPage() {
-        usersPage = getPage(UsersPage.class);
-    }
+    @Inject
+    private User user;
+
+    @Inject
+    WishList wishList;
 
     @Test
-    @Tag("users")
+    @Tag("users2")
     @DisplayName("Управление пользователем списка желаний.")
     public void userPresentWishList() {
-        WishList wishList = new WishList();
         String nameProduct = wishList.getProductName();
         String description = wishList.getDescription();
 
         usersPage.open();
-        usersPage.authorization();
+        clientOtusPage.registration(user);
+        clientOtusPage.authorization(user);
         usersPage.clickCreateNewWishList();
-        usersPage.formCreateNewWishList(nameProduct, description);
+        usersPage.formCreateNewWishList(wishList);
         usersPage.clickButtonCreate();
 
         String nameCheck = usersPage.getPageTextNameRegistrationPresent();
@@ -55,32 +58,35 @@ public class UsersTests extends BaseTest {
     }
 
     @Test
-    @Tag("users")
+    @Tag("users2")
     @DisplayName("Управление пользовательского подарка. Поиск и удаление подарка.")
     public void userPresentView() {
 
-        WishList wishList = new WishList();
         String nameProduct = wishList.getProductName();
         String description = wishList.getDescription();
 
         usersPage.open();
-        usersPage.authorization();
-        usersPage.clickCreateNewWishList();
-        usersPage.formCreateNewWishList(nameProduct, description);
-        usersPage.clickButtonCreate();
+        clientOtusPage.registration(user);
+        clientOtusPage.authorization(user);
+        usersPage.deleteAllWishLists();
 
+        assertThat(usersPage.verifyDeleteButtonNotPresent())
+                .withFailMessage("Не все подарки удалились")
+                .isFalse();
+
+        usersPage.clickCreateNewWishList();
+        usersPage.formCreateNewWishList(wishList);
+        usersPage.clickButtonCreate();
         usersPage.viewWishList();
+
         String nameCheck = usersPage.getNameWishList();
-//        new Actions(driver).sendKeys(Keys.SPACE).perform();
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         assertThat(nameCheck)
                 .as("Элемент с названием %s не найден", nameProduct)
                 .isEqualTo(nameProduct);
 
 
         usersPage.isDeleteWishList();
-//
+
         Boolean isDeletePresent = usersPage.isDeleteWishList();
         assertThat(isDeletePresent).as("Проверка удаления элемента").isTrue();
 

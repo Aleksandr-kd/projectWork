@@ -1,25 +1,21 @@
-package org.data.factory;
+package ru.arutyunyan.factory;
 
-import org.data.exceptions.BrowserNotSupportedException;
-import org.data.factory.settings.ChromeSettings;
-import org.data.factory.settings.FirefoxSettings;
+import ru.arutyunyan.exceptions.BrowserNotSupportedException;
+import ru.arutyunyan.factory.settings.ChromeSettings;
+import ru.arutyunyan.factory.settings.FirefoxSettings;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 
-@Configuration
+
 public class WebDriverFactory {
 
-    @Bean
-    @Scope("prototype")
-    public WebDriver testDriver() {
-        String browserName = System.getProperty("browser");
+    private final String browserName = System.getProperty("browser");
+
+    public WebDriver getDriver() {
         return switch (browserName.toLowerCase()) {
             case "chrome" -> new ChromeDriver((ChromeOptions) new ChromeSettings().settings());
             case "firefox" -> new FirefoxDriver((FirefoxOptions) new FirefoxSettings().settings());
@@ -27,3 +23,4 @@ public class WebDriverFactory {
         };
     }
 }
+

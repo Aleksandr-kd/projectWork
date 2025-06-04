@@ -1,4 +1,4 @@
-package org.data.factory.settings;
+package ru.arutyunyan.factory.settings;
 
 import org.openqa.selenium.remote.AbstractDriverOptions;
 

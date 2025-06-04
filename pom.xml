@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>${encoding.type}</project.reporting.outputEncoding>
 
         <!-- Java version -->
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
@@ -35,8 +35,9 @@
         <assertj-core.version>3.26.3</assertj-core.version>
         <spring-boot.version>3.4.5</spring-boot.version>
         <spring-context.version>5.3.30</spring-context.version>
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
         <javafaker.version>1.0.2</javafaker.version>
+        <guice.version>7.0.0</guice.version>
 
         <base.url>https://wishlist.otus.kartushin.su</base.url>
 
@@ -67,30 +68,6 @@
             <artifactId>allure-junit5</artifactId>
             <version>${allure-junit5.version}</version>
         </dependency>
-
-        <!-- Spring Boot Starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
-        <!-- Spring Boot Starter Test (для тестов) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Lombok для упрощения кода -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
@@ -101,7 +78,18 @@
             <artifactId>datafaker</artifactId>
             <version>2.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -185,8 +173,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
             </plugin>
-
-
         </plugins>
     </build>
 </project>
