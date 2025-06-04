@@ -4,8 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 
-@SpringBootApplication
-@ComponentScan(basePackages = {"org.data.factory", "org.data.pages"})
+@SpringBootApplication(scanBasePackages = "org.data")
 public class TestApplication {
     public static void main(String[] args) {
     }
